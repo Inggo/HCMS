@@ -1,6 +1,7 @@
-test2
-x
-x
-x
-t
-t
+# HCMS
+
+By:
+
+* Inggo Espinosa
+* Benrie Jocson
+* Reginald Murillo
