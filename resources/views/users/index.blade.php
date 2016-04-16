@@ -18,10 +18,10 @@
                         <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $user->full_name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->type }}</td>
-                                <td></td>
+                                <td>{!! $user->full_name !!}</td>
+                                <td>{!! $user->email !!}</td>
+                                <td>{!! $user->type !!}</td>
+                                <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a></td>
                             </tr>
                         @endforeach
                         </tbody>

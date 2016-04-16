@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'full_name', 'email', 'password', 'contact_number',
     ];
 
     /**
@@ -24,6 +24,21 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static $types = [
+        'administrator'  => 'Administrator',
+        'representative' => 'Health Facility Representative',
+        'handler'        => 'Complaint Handler',
+        'reviewer'       => 'Complaint Reviewer',
+        'complainant'    => 'Complainant',
+    ];
+
+    public function getTypeAttribute($value)
+    {
+        return array_key_exists($value, static::$types) ?
+            static::$types[$value] :
+            'Complainant';
+    }
+
     public function isAdministrator()
     {
         return $this->is('administrator');
@@ -31,6 +46,6 @@ class User extends Authenticatable
 
     public function is($type)
     {
-        return $this->type === $type;
+        return $this['attributes']['type'] === $type;
     }
 }

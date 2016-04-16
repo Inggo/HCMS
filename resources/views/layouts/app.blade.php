@@ -52,10 +52,11 @@
 
                     @else
                     <li><a href="{{ url('/tickets') }}">Tickets</a></li>
-                    @endif
 
                     @if (Auth::user()->isAdministrator())
                     <li><a href="{{ url('/users') }}">Users</a></li>
+                    @endif
+
                     @endif
                 </ul>
 
