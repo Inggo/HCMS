@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HCMS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" >
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="jquery/chosen.min.css">
+  <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+</head>
+<style>
+
+</style>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          HCMS
+        </a>
+      </div>
+      <ul class="nav navbar-nav" style="">
+      </ul>
+      <p class="navbar-text navbar-right"><i class="fa fa-user" aria-hidden="true"></i> &nbsp;&nbsp;<a href="" style="padding-right: 10px">Logout</a></p>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="panel panel-success">
+      <div class="panel-heading"> 
+        <h2 style="display:inline">Reviewer Page</h2>
+      </div>
+      <div class="panel-body" align="center">
+
+        <table class="table table-bordered" id="myTable" style="font-size: 12px; ">
+          <thead style="background-color: #efeff5">
+            <tr>
+              <th>test</th>
+              <th>test</th>
+              <th>test</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>asdsad</td>
+              <td>asdsad</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>asdsad</td>
+              <td>asdsad</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>asdsad</td>
+              <td>fsd</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>aaaa</td>
+              <td>sssss</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script src="jquery/chosen.jquery.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#myTable').DataTable(
+    {
+
+    });
+  });
+</script>
+
+
+</html>
