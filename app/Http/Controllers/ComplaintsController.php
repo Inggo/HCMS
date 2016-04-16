@@ -5,6 +5,8 @@ namespace HCMS\Http\Controllers;
 use Illuminate\Http\Request;
 use HCMS\Http\Requests;
 use HCMS\Complaint;
+use HCMS\User;
+use Auth;
 
 class ComplaintsController extends Controller
 {
@@ -15,7 +17,7 @@ class ComplaintsController extends Controller
      */
     public function index()
     {
-        return Complaint::all();
+        return Complaint::where(['user_id' => Auth::user()->id])->get();
     }
 
     /**
@@ -25,7 +27,9 @@ class ComplaintsController extends Controller
      */
     public function create()
     {
-        //
+        return response(json_encode([
+            'success' => true,
+        ]));
     }
 
     /**

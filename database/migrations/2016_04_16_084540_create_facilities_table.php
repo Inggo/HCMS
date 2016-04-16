@@ -15,6 +15,10 @@ class CreateFacilitiesTable extends Migration
         Schema::create('facilities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('province');
+            $table->string('type');
+            $table->float('latitude');
+            $table->float('longitude');
             $table->timestamps();
         });
     }

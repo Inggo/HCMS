@@ -23,5 +23,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::resource('users', 'UsersController');
         Route::resource('complaints', 'ComplaintsController');
+        Route::resource('facilities', 'FacilitiesController', ['only' =>
+            ['index', 'show']
+        ]);
     });
 });
