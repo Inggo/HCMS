@@ -12,7 +12,7 @@ class Complaint extends Model
         'title', 'facility_id', 'user_id', 'status', 'category'
     ];
 
-    protected static $statuses = [
+    public static $statuses = [
         'new'      => 'New',
         'open'     => 'Open',
         'resolved' => 'Resolved',
