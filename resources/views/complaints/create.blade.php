@@ -157,34 +157,34 @@ function formatFacilitySelection (facility) {
         });
     });
 
-    $(document).on('submit', 'form', function(e) {
-        // e.preventDefault();
+    // $(document).on('submit', 'form', function(e) {
+    //     e.preventDefault();
 
-        var $form  = $(this),
-            data   = new FormData(),
-            params = $form.serializeArray(),
-            files  = $form.find('#attachments')[0].files;
+    //     var $form  = $(this),
+    //         data   = new FormData(),
+    //         params = $form.serializeArray(),
+    //         files  = $form.find('#attachments')[0].files;
 
-        $.each(files, function(i, file) {
-            data.append('attachments[' + i + ']', file);
-        });
+    //     $.each(files, function(i, file) {
+    //         data.append('attachments[' + i + ']', file);
+    //     });
 
-        $.each(params, function(i, param) {
-            data.append(param.name, param.value);
-        });
+    //     $.each(params, function(i, param) {
+    //         data.append(param.name, param.value);
+    //     });
 
-        $.ajax({
-            url: $form.attr('action'),
-            data: data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            success: function (result) {
-                console.log(result);
-            }
-        });
-    });
+    //     $.ajax({
+    //         url: $form.attr('action'),
+    //         data: data,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         type: 'POST',
+    //         success: function (result) {
+    //             console.log(result);
+    //         }
+    //     });
+    // });
 })(jQuery);
 </script>
 @endsection

@@ -4,11 +4,12 @@ namespace HCMS;
 
 use Illuminate\Database\Eloquent\Model;
 use HCMS\User;
+use Auth;
 
 class Complaint extends Model
 {
     protected $fillable = [
-        'title', 'hospital_id', 'user_id',
+        'title', 'hospital_id', 'user_id', 'status',
     ];
 
     protected static $statuses = [
@@ -17,9 +18,26 @@ class Complaint extends Model
         'resolved' => 'Resolved',
     ];
 
+    public function getStatusAttribute($value)
+    {
+        return array_key_exists($value, static::$statuses) ?
+            static::$statuses[$value] :
+            'New';
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('HCMS\User');
+    }
+
+    public function assignedUser()
+    {
+        return $this->belongsTo('HCMS\User', 'assigned_user_id');
+    }
+
     public function isViewableBy(User $user)
     {
-        if ($this->wasOwnedBy($user) ||
+        if ($this->wasCreatedBy($user) ||
                 $this->isAssignedTo($user) ||
                 $this->wasRespondedBy($user)) {
             return true;
@@ -46,5 +64,14 @@ class Complaint extends Model
     public function replies()
     {
         return $this->hasMany('HCMS\Reply');
+    }
+
+    public function scopeIsViewable($query)
+    {
+        return $query->where('assigned_user_id', Auth::user()->id)
+                    ->orWhere('user_id', Auth::user()->id)
+                    ->orWhereHas('replies', function ($query) {
+                        $query->where('user_id', Auth::user()->id);
+                    });
     }
 }

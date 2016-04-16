@@ -19,7 +19,9 @@ class ComplaintsController extends Controller
      */
     public function index()
     {
-        return Complaint::where(['user_id' => Auth::user()->id])->get();
+        $complaints = Complaint::isViewable()->orderBy('updated_at', 'desc')->get();
+
+        return view('complaints.index', compact('complaints'));
     }
 
     /**
@@ -57,12 +59,12 @@ class ComplaintsController extends Controller
         // Store file within complaint
         if ($request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {
+                $filename = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
                 $attachment = Attachment::create([
                     'reply_id' => $reply->id,
-                    'filename' => $file->getClientOriginalName() .
-                            '.' . $file->getClientOriginalExtension()
+                    'filename' => $filename,
                 ]);
-                $file->move(storage_path('uploads'));
+                $file->move(storage_path('uploads'), $filename);
             }
         }
 
@@ -83,6 +85,6 @@ class ComplaintsController extends Controller
             return abort(403);
         }
 
-        return $complaint;
+        return view('complaints.show')->with($complaint);
     }
 }

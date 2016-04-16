@@ -52,7 +52,7 @@
                     @if (Auth::guest())
 
                     @else
-                    <li><a href="{{ url('/tickets') }}">Tickets</a></li>
+                    <li><a href="{{ url('/complaints') }}">Complaints</a></li>
 
                     @if (Auth::user()->isAdministrator())
                     <li><a href="{{ url('/users') }}">Users</a></li>
