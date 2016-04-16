@@ -19,4 +19,9 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource('users', 'UsersController');
+Route::group(['middleware' => ['web']], function () {
+    Route::group(['middleware' => ['auth']], function () {
+        Route::resource('users', 'UsersController');
+        Route::resource('complaints', 'ComplaintsController');
+    });
+});
