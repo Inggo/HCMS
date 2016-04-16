@@ -85,6 +85,6 @@ class ComplaintsController extends Controller
             return abort(403);
         }
 
-        return view('complaints.show')->with($complaint);
+        return view('complaints.show', compact('complaint'));
     }
 }

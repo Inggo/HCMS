@@ -9,7 +9,7 @@ use Auth;
 class Complaint extends Model
 {
     protected $fillable = [
-        'title', 'hospital_id', 'user_id', 'status',
+        'title', 'facility_id', 'user_id', 'status', 'category'
     ];
 
     protected static $statuses = [
@@ -28,6 +28,11 @@ class Complaint extends Model
     public function user()
     {
         return $this->belongsTo('HCMS\User');
+    }
+
+    public function facility()
+    {
+        return $this->belongsTo('HCMS\Facility');
     }
 
     public function assignedUser()
