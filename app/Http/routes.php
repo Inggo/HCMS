@@ -25,7 +25,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('complaints', 'ComplaintsController', ['only' =>
         ['index', 'show', 'create', 'store']
     ]);
-    Route::resource('facilities', 'FacilitiesController', ['only' =>
-        ['index', 'show']
-    ]);
+    Route::group(['prefix' => 'api'], function () {
+        Route::resource('facilities', 'Api\FacilitiesController', ['only' =>
+            ['index', 'show']
+        ]);
+    });
 });

@@ -1,7 +1,8 @@
 <?php
 
-namespace HCMS\Http\Controllers;
+namespace HCMS\Http\Controllers\Api;
 
+use HCMS\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use HCMS\Http\Requests;
 use HCMS\Facility;

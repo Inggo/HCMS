@@ -109,7 +109,7 @@ function formatFacilitySelection (facility) {
 (function($) {
     $("#facility_id").select2({
         ajax: {
-            url: '{!! action('FacilitiesController@index'); !!}',
+            url: '{!! action('Api\FacilitiesController@index'); !!}',
             dataType: 'json',
             delay: 250,
             data: function (params) {
