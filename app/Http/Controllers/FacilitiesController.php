@@ -15,7 +15,11 @@ class FacilitiesController extends Controller
      */
     public function index()
     {
-        return Facility::all();
+        if (request('search')) {
+            return Facility::where('name', 'LIKE', '%' . request('search') . '%')->paginate(10);
+        }
+
+        return Facility::paginate(10);
     }
 
     /**

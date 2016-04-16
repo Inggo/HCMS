@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-<link href="{{ asset('css/chosen.min.css') }}" rel='stylesheet' type='text/css'>
+<link href="{{ asset('css/select2.min.css') }}" rel='stylesheet' type='text/css'>
 <style>
 .btn-file {
     position: relative;
@@ -34,40 +34,39 @@
 
                 <div class="panel-body">
 
-                    <form method="POST" action="{{ route('complaints.store') }}">
-                        {!! csrf_field() !!}
-                        <fieldset class="form-group">
-                            <label for="title">Complaint Title</label>
-                            <input type="text" class="form-control" id="title" placeholder="" style="width: 40%;">
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label for="desc">Complaint Description</label>
-                            <textarea class="form-control"  style="width: 40%;" rows="5" id="desc"></textarea>
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label for="desc">Hospital</label>
-                            <br>
-                            <select class="chzn-select form-control" multiple="true" id="hospital" name="hospital" style="width:40%;">
-                                <option value="AC">A</option>
-                                <option value="AD">B</option>
-                                <option value="AM">C</option>
-                                <option value="AP">D</option>
-                            </select>
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label for="file_up">Attach Files</label>
-                            <br>
-                            <div class="input-group" style="width: 40%;">
-                                <span class="input-group-btn">
-                                    <span class="btn btn-primary btn-file">
-                                        Browse<input type="file" id="file_up" name="file_up" multiple>
+                    <div class="col-md-6 col-md-offset-3">
+
+                        <form method="POST" action="{{ route('complaints.store') }}">
+                            {!! csrf_field() !!}
+                            <fieldset class="form-group">
+                                <label for="title">Complaint Title</label>
+                                <input type="text" class="form-control" id="title" placeholder="" name="title">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="content">Complaint Description</label>
+                                <textarea class="form-control" rows="5" id="content" name="content"></textarea>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="facility_id">Hospital</label>
+                                <br>
+                                <select class="form-control" id="facility_id" name="facility_id">
+                                </select>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="attachments">Attach Files</label>
+                                <br>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <span class="btn btn-primary btn-file">
+                                            Browse<input type="file" id="attachments" name="attachments[]" multiple>
+                                        </span>
                                     </span>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Filename" readonly style="cursor:context-menu;">
-                            </div>
-                        </fieldset>
-                        <input type="submit" value="Submit" class="btn btn-primary">
-                    </form>
+                                    <input type="text" class="form-control" placeholder="Filename" readonly style="cursor:context-menu;">
+                                </div>
+                            </fieldset>
+                            <input type="submit" value="Submit" class="btn btn-primary">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,11 +75,58 @@
 @endsection
 
 @section('footer')
-<script src="{{ asset('js/chosen.jquery.min.js') }}"></script>
+<script src="{{ asset('js/select2.full.min.js') }}"></script>
 
 <script type="text/javascript">
-    $(function() {
-        $(".chzn-select").chosen();
+
+function formatFacility (facility) {
+    if (facility.loading) return facility.text;
+
+    var markup = "<div class='select2-result-repository clearfix'>" +
+        "<div class='select2-result-repository__meta'>" +
+          "<div class='select2-result-repository__title'>" + facility.name + "</div>";
+
+    if (facility.province) {
+        markup += "<div class='select2-result-repository__description'>" + facility.province + "</div>";
+    }
+
+    return markup;
+}
+
+function formatFacilitySelection (facility) {
+    return facility.name;
+}
+
+(function($) {
+    $("#facility_id").select2({
+        ajax: {
+            url: '{!! action('FacilitiesController@index'); !!}',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    search: params.term,
+                    page: params.page
+                };
+            },
+            processResults: function (result, params) {
+                params.page = params.page || 1;
+
+                return {
+                    results: result.data,
+                    pagination: {
+                        more: result.current_page < result.last_page
+                    }
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        minimumInputLength: 1,
+        templateResult: formatFacility,
+        templateSelection: formatFacilitySelection
     });
 
     $(document).on('change', '.btn-file :file', function() {
@@ -99,7 +145,8 @@
             if (input.length) {
                 input.val(log);
             }
-      });
+        });
     });
+})(jQuery);
 </script>
 @endsection
