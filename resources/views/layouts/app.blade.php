@@ -52,6 +52,7 @@
                     @if (Auth::guest())
 
                     @else
+                    <li><a href="{{ url('/complaints/create') }}">Submit Complaint</a></li>
                     <li><a href="{{ url('/complaints') }}">Complaints</a></li>
 
                     @if (Auth::user()->isAdministrator())

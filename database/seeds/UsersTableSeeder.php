@@ -41,5 +41,11 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('secret'),
             'type' => 'complainant',
         ]);
+        DB::table('users')->insert([
+            'full_name' => 'Maria San Jose',
+            'email' => 'maria@hcms.dev',
+            'password' => bcrypt('secret'),
+            'type' => 'complainant',
+        ]);
     }
 }
