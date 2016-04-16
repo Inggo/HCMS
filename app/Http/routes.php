@@ -12,11 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $facilities = HCMS\Facility::has('complaints')->get();
+    return view('welcome', compact('facilities'));
 });
 
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', function () {
+    return redirect('/');
+});
 
 Route::auth();
 

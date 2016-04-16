@@ -19,4 +19,19 @@ class Facility extends Model
     {
         return $this->hasMany('HCMS\Complaint');
     }
+
+    public function newComplaints()
+    {
+        return count($this->complaints()->where('status', 'new')->get());
+    }
+
+    public function openComplaints()
+    {
+        return count($this->complaints()->where('status', 'open')->get());
+    }
+
+    public function resolvedComplaints()
+    {
+        return count($this->complaints()->where('status', 'resolved')->get());
+    }
 }
