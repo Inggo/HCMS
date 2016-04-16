@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough('HCMS\Reply', 'HCMS\Complaint');
     }
+
+    public function scopeReviewer($query)
+    {
+        return $query->where('type', 'reviewer');
+    }
 }

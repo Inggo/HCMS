@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-<link href="{{ asset('css/jquery.dataTables.min.css') }}" rel='stylesheet' type='text/css'>
+<link href="{{ asset('css/datatables.min.css') }}" rel='stylesheet' type='text/css'>
 @endsection
 
 @section('content')
@@ -44,12 +44,13 @@
 @endsection
 
 @section('footer')
-<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/datatables.min.js') }}"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
     $('#complaints-table').DataTable({
-        "order": [[0, "desc"]]
+        "order": [[0, "desc"]],
+        "responsive": true
     });
 });
 </script>

@@ -74,4 +74,23 @@ class Complaint extends Model
                         $query->where('user_id', Auth::user()->id);
                     });
     }
+
+    public function assignToReviewer()
+    {
+        // Search for reviewer
+        $reviewer = User::reviewer()->first();
+
+        // Assign to reviewer
+        $this->assigned_user_id = $reviewer->id;
+
+        // Save
+        $this->save();
+    }
+
+    public static function boot()
+    {
+        Complaint::created(function ($complaint) {
+            $complaint->assignToReviewer();
+        });
+    }
 }
