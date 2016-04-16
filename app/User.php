@@ -48,4 +48,14 @@ class User extends Authenticatable
     {
         return $this['attributes']['type'] === $type;
     }
+
+    public function compliant()
+    {
+        return $this->hasMany('HCMS\Complaint');
+    }
+
+    public function replies()
+    {
+        return $this->hasManyThrough('HCMS\Reply', 'HCMS\Complaint');
+    }
 }

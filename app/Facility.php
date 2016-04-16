@@ -14,4 +14,9 @@ class Facility extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function complaints()
+    {
+        return $this->hasMany('HCMS\Complaint');
+    }
 }
