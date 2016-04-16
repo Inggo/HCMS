@@ -7,6 +7,10 @@ use HCMS\User;
 
 class Complaint extends Model
 {
+    protected $fillable = [
+        'title', 'hospital_id', 'user_id',
+    ];
+
     protected static $statuses = [
         'new'      => 'New',
         'open'     => 'Open',

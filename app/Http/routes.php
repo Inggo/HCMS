@@ -15,18 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['middleware' => ['web']], function () {
-    Route::group(['middleware' => ['auth']], function () {
-        Route::resource('users', 'UsersController');
-        Route::resource('complaints', 'ComplaintsController', ['only' =>
-            ['index', 'show', 'create', 'store']
-        ]);
-        Route::resource('facilities', 'FacilitiesController', ['only' =>
-            ['index', 'show']
-        ]);
-    });
+Route::auth();
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('users', 'UsersController');
+    Route::resource('complaints', 'ComplaintsController', ['only' =>
+        ['index', 'show', 'create', 'store']
+    ]);
+    Route::resource('facilities', 'FacilitiesController', ['only' =>
+        ['index', 'show']
+    ]);
 });

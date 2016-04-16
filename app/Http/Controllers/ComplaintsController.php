@@ -4,7 +4,9 @@ namespace HCMS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use HCMS\Http\Requests;
+use HCMS\Attachment;
 use HCMS\Complaint;
+use HCMS\Reply;
 use HCMS\User;
 use Auth;
 
@@ -38,11 +40,33 @@ class ComplaintsController extends Controller
      */
     public function store(Request $request)
     {
-        // Store new complaint here
+        // Store complaint
+        $complaint = Complaint::create([
+            'title'       => $request->input('title'),
+            'facility_id' => $request->input('facility_id'),
+            'user_id'     => Auth::user()->id,
+        ]);
 
-        return response(json_encode([
-            'success' => true,
-        ]));
+        // Store reply
+        $reply = Reply::create([
+            'complaint_id' => $complaint->id,
+            'user_id'      => Auth::user()->id,
+            'content'      => $request->input('content'),
+        ]);
+
+        // Store file within complaint
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                $attachment = Attachment::create([
+                    'reply_id' => $reply->id,
+                    'filename' => $file->getClientOriginalName() .
+                            '.' . $file->getClientOriginalExtension()
+                ]);
+                $file->move(storage_path('uploads'));
+            }
+        }
+
+        return back()->with('success', true);
     }
 
     /**

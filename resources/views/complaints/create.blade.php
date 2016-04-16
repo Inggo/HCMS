@@ -36,20 +36,29 @@
 
                     <div class="col-md-6 col-md-offset-3">
 
-                        <form method="POST" action="{{ route('complaints.store') }}">
+                        @if (session('success'))
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            Successfully submitted your complaint!
+                        </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('complaints.store') }}" enctype="multipart/form-data">
                             {!! csrf_field() !!}
                             <fieldset class="form-group">
                                 <label for="title">Complaint Title</label>
-                                <input type="text" class="form-control" id="title" placeholder="" name="title">
+                                <input type="text" class="form-control" id="title" placeholder="" name="title" required>
                             </fieldset>
                             <fieldset class="form-group">
                                 <label for="content">Complaint Description</label>
-                                <textarea class="form-control" rows="5" id="content" name="content"></textarea>
+                                <textarea class="form-control" rows="5" id="content" name="content" required></textarea>
                             </fieldset>
                             <fieldset class="form-group">
                                 <label for="facility_id">Hospital</label>
                                 <br>
-                                <select class="form-control" id="facility_id" name="facility_id">
+                                <select class="form-control" id="facility_id" name="facility_id"required>
                                 </select>
                             </fieldset>
                             <fieldset class="form-group">
@@ -129,14 +138,14 @@ function formatFacilitySelection (facility) {
         templateSelection: formatFacilitySelection
     });
 
-    $(document).on('change', '.btn-file :file', function() {
+    $(document).on('change', '.btn-file :file', function () {
         var input = $(this),
         numFiles = input.get(0).files ? input.get(0).files.length : 1,
         label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
         input.trigger('fileselect', [ numFiles, label]);
     });
 
-    $(document).ready( function() {
+    $(document).ready(function() {
         $('.btn-file :file').on('fileselect', function(event,  numFiles, label) {
 
             var input = $(this).parents('.input-group').find(':text'),
@@ -144,6 +153,35 @@ function formatFacilitySelection (facility) {
 
             if (input.length) {
                 input.val(log);
+            }
+        });
+    });
+
+    $(document).on('submit', 'form', function(e) {
+        // e.preventDefault();
+
+        var $form  = $(this),
+            data   = new FormData(),
+            params = $form.serializeArray(),
+            files  = $form.find('#attachments')[0].files;
+
+        $.each(files, function(i, file) {
+            data.append('attachments[' + i + ']', file);
+        });
+
+        $.each(params, function(i, param) {
+            data.append(param.name, param.value);
+        });
+
+        $.ajax({
+            url: $form.attr('action'),
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function (result) {
+                console.log(result);
             }
         });
     });
