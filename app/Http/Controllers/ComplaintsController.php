@@ -27,9 +27,7 @@ class ComplaintsController extends Controller
      */
     public function create()
     {
-        return response(json_encode([
-            'success' => true,
-        ]));
+        return view('complaints.create');
     }
 
     /**
@@ -40,7 +38,11 @@ class ComplaintsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Store new complaint here
+
+        return response(json_encode([
+            'success' => true,
+        ]));
     }
 
     /**
@@ -51,40 +53,12 @@ class ComplaintsController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $complaint = Complaint::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        if (!$complaint->isViewableBy(Auth::user())) {
+            return abort(403);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $complaint;
     }
 }
