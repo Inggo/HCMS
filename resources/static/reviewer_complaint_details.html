@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HCMS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" >
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="jquery/chosen.min.css">
+  <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+</head>
+<style>
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+  }
+
+</style>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          HCMS
+        </a>
+      </div>
+      <ul class="nav navbar-nav" style="">
+      </ul>
+      <p class="navbar-text navbar-right"><i class="fa fa-user" aria-hidden="true"></i> &nbsp;&nbsp;<a href="" style="padding-right: 10px">Logout</a></p>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="panel panel-success">
+      <div class="panel-heading"> 
+        <h2 style="display:inline">Complaint Details</h2>
+      </div>
+      <div class="panel-body ">
+        <div class="col-md-6 col-md-offset-3">
+
+          <form method="POST" action="">
+           <fieldset class="form-group">
+            <label for="title">Complaint Title</label>
+            <input type="text" class="form-control" id="title" placeholder="" name="title" disabled="" value="complaints" style="cursor: context-menu;">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="content">Complaint Description</label>
+            <textarea class="form-control" rows="5" id="content" name="content" disabled="" style="cursor: context-menu;" >desciiasdhlhkjasd</textarea>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="facility_id">Hospital</label>
+            <br>
+            <input type="text" class="form-control" id="facility_id" name="facility_id" disabled="" value="UP Infirmary" style="cursor: context-menu;">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="status">Status</label>
+            <input type="text" class="form-control" id="status" placeholder="" name="status"  value="OPEN" style="cursor: context-menu;">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="assigned">Assigned To</label>
+            <input type="text" class="form-control" id="assigned" placeholder="" name="assigned" value="----" style="cursor: context-menu;">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="category">Category</label>
+            <input type="text" class="form-control" id="category" placeholder="" name="category"  value="-----" style="cursor: context-menu;">
+          </fieldset>
+          <br>
+          <div align="center" style="padding:0px">
+           <text><strong>Attachments</strong></text>
+
+           <hr style="display: block; border-style: inset; padding-top:0px;
+           border-width: 2px;">
+
+           attachment icons display here....
+           <br>
+           <br>
+           <br>
+           <br>
+
+         </div>
+
+
+
+       </div>
+
+
+
+     </div>
+     <div align="center">
+       <div class="well" style="width:80%;" >
+         <div align="left" style="margin-top:0px">
+           <h4 style="display:inline-block">From: <strong>Juan Dela Cruz</strong></h4> 
+           <img src="http://www.gravatar.com/avatar/" style="float:right; display:inline;" />  
+           <h4>Date:<strong>04-23-2016</strong></h4> 
+
+         </div>
+         <textarea rows="10" disabled="disabled" style="width:100%; font-size: 16px">Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.</textarea>
+         <br>
+         <ul>
+          <li v-for="attachment in reply.attachments">
+           <a href="attachment.filename" >{{attachment.filename}}</a>
+         </li>
+       </ul>
+
+     </div>
+     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Respond">Respond</button>
+   </div>
+   
+
+ </form>
+
+</div>
+
+
+
+</div>
+
+
+<div id="Respond" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Action</h4>
+      </div>
+      <form method="post">
+        <div class="modal-body">
+         <fieldset class="form-group">
+          <label for="respond">Response</label>
+          <textarea class="form-control" rows="5" id="respond" name="respond" ></textarea>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label for="attachments">Attach Files</label>
+          <br>
+          <div class="input-group">
+            <span class="input-group-btn">
+              <span class="btn btn-primary btn-file">
+                Browse<input type="file" id="attachments" name="attachments[]" multiple>
+              </span>
+            </span>
+            <input type="text" class="form-control" placeholder="Filename" readonly style="cursor:context-menu;">
+          </div>
+        </fieldset>
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="submit"> 
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+</div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script src="jquery/chosen.jquery.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+
+<script type="text/javascript">
+
+
+  $(document).on('change', '.btn-file :file', function() {
+    var input = $(this),
+    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [ numFiles, label]);
+  });
+
+
+  $(document).ready(function(){
+    $('#assign').select2();
+
+    $('.btn-file :file').on('fileselect', function(event,  numFiles, label) {
+
+      var input = $(this).parents('.input-group').find(':text'),
+      log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+      if (input.length) {
+        input.val(log);
+      }
+    });
+  });
+</script>
+
+
+</html>
