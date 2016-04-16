@@ -147,7 +147,7 @@
                 </div>
                 <div class="row">
                     @foreach ($complaint->replies()->skip(1)->take(100)->get() as $reply)
-                    <div class="well col-md-10 col-md-offset-1">
+                    <div class="well col-md-10 col-md-offset-1" style="{{ $complaint->user->id === $reply->user->id ? 'background: #8c8cff;' : '' }}">
                         <div style="margin-top: 0px; overflow: hidden;" class="text-left">
                             <img src="http://www.gravatar.com/avatar/{{ md5(trim($reply->user->email))}}" style="float:right; display:inline;" />  
                             <h4><strong>{{ $reply->user->full_name }}</strong></h4> 
